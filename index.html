@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+<title>Kejutan Ulang Tahun</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Hanken+Grotesk:wght@400;600;700&display=swap">
+<style>
+:root{
+  --bg:#1a1033; --bg2:#2d1a5c; --ink:#fff6e8; --muted:#cdc2ea;
+  --coral:#ff6b5e; --sun:#ffc933; --mint:#3ddbb0; --sky:#5cb8ff;
+  --frosting:#ffe3ef; --sponge:#ffb36b; --plate:#e6dcff; --dark:#1a1033;
+  --display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,-apple-system,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{
+  margin:0; min-height:100svh;
+  background-color:var(--bg);
+  background-image:radial-gradient(900px 500px at 80% -10%,var(--bg2),transparent 70%),radial-gradient(700px 420px at 0% 100%,#3a1f6e55,transparent 70%);
+  color:var(--ink); font:400 17px/1.6 var(--body);
+  padding-block:clamp(28px,8vh,80px);
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+}
+h1,h2{font-family:var(--display);font-weight:800;line-height:1.02;letter-spacing:-.02em;margin:0;text-wrap:balance}
+p{margin:0}
+.col{max-width:560px;margin-inline:auto;display:flex;flex-direction:column;align-items:center;text-align:center;gap:20px;min-width:0}
+.wide{max-width:900px;margin-inline:auto;display:flex;flex-direction:column;gap:28px;min-width:0}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sun)}
+.lead{color:var(--muted);max-width:44ch}
+.stage.in{animation:rise .6s cubic-bezier(.2,.8,.2,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+.btn{
+  font:700 17px/1 var(--body); color:var(--dark); background:var(--sun);
+  border:0; border-radius:14px; padding:0 26px; min-height:52px; cursor:pointer;
+  box-shadow:0 5px 0 #b88a00; transition:transform .12s,box-shadow .12s;
+}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 #b88a00}
+.btn.alt{background:var(--mint);box-shadow:0 5px 0 #168a6b}
+.btn.alt:active{box-shadow:0 1px 0 #168a6b}
+button:focus-visible,.candle:focus-visible{outline:3px solid var(--sky);outline-offset:4px}
+
+/* kado */
+.gift{background:none;border:0;padding:0;cursor:pointer;width:min(260px,70vw);animation:wiggle 2.4s ease-in-out infinite}
+.gift svg{width:100%;height:auto;overflow:visible;display:block}
+.g-box{fill:var(--coral)} .g-lid{fill:#ff8a7d} .g-rib{fill:var(--sun)} .g-bow{fill:none;stroke:var(--sun);stroke-width:9}
+#lid{transition:transform .7s cubic-bezier(.3,1.4,.5,1);transform-origin:36px 86px}
+.gift.open{animation:none}
+.gift.open #lid{transform:translateY(-54px) rotate(-16deg)}
+@keyframes wiggle{0%,70%,100%{transform:rotate(0)}76%{transform:rotate(-4deg)}84%{transform:rotate(4deg)}92%{transform:rotate(-2deg)}}
+
+/* kue */
+.cake{width:min(360px,90vw);height:auto;display:block;overflow:visible}
+.plate{fill:var(--plate)} .sp1{fill:var(--sponge)} .sp2{fill:var(--coral)} .sp3{fill:var(--sky)}
+.ice{fill:var(--frosting)}
+.candle{cursor:pointer}
+.c0{fill:var(--mint)} .c1{fill:var(--sun)} .c2{fill:var(--sky)} .c3{fill:var(--coral)}
+.flame{fill:var(--sun);transform-box:fill-box;transform-origin:50% 100%;animation:flick .5s ease-in-out infinite alternate;transition:transform .25s,opacity .25s}
+.core{fill:#fff6e8}
+.glow{fill:var(--sun);opacity:.22}
+.candle.out .flame,.candle.out .glow{transform:scale(0);opacity:0;animation:none}
+.smoke{fill:var(--muted);opacity:0;transform-box:fill-box}
+.candle.out .smoke{animation:puff 1.4s ease-out forwards}
+.candle.out .smoke:nth-of-type(2){animation-delay:.15s}
+@keyframes flick{from{transform:scale(1,1) rotate(-3deg)}to{transform:scale(.92,1.08) rotate(3deg)}}
+@keyframes puff{0%{opacity:.7;transform:translateY(0) scale(.6)}100%{opacity:0;transform:translateY(-34px) scale(1.6)}}
+.count{font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
+.count b{color:var(--sun)}
+
+/* ucapan */
+.title{font-size:clamp(40px,9vw,84px)}
+.title em{font-style:normal;color:var(--sun)}
+.pesan{font-size:clamp(18px,2.6vw,22px);max-width:52ch;color:var(--ink)}
+.sub{font-family:var(--display);font-weight:800;font-size:22px}
+.doa{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:18px;list-style:none;margin:0;padding:0}
+.doa li{
+  min-width:0; padding:20px 20px 22px; border-radius:16px; color:var(--dark);
+  font-weight:600; line-height:1.45; box-shadow:0 10px 0 #0000002e;
+  transform:rotate(var(--tilt,0deg)); background:var(--bgc);
+}
+.doa li small{display:block;font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:12px;opacity:.7;margin-bottom:8px}
+.ttd{color:var(--muted)}
+.row{display:flex;flex-wrap:wrap;gap:14px}
+
+.mute{
+  position:fixed; z-index:20; top:calc(12px + env(safe-area-inset-top,0px)); right:max(12px,env(safe-area-inset-right,0px));
+  min-height:44px; padding:0 16px; border-radius:22px; border:2px solid #ffffff33; background:#1a1033cc; color:var(--ink);
+  font:700 14px/1 var(--body); cursor:pointer;
+}
+#cv{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:10}
+@media (prefers-reduced-motion:reduce){
+  .gift,.flame{animation:none}
+  .stage.in{animation:none}
+  #lid{transition:none}
+}
+</style>
+</head>
+<body>
+
+<button class="mute" id="mute" type="button" hidden>Musik: nyala</button>
+<canvas id="cv" aria-hidden="true"></canvas>
+
+<main>
+  <!-- Tahap 1: kado -->
+  <section class="stage col in" id="gate">
+    <p class="eyebrow" id="tgl"></p>
+    <h1 class="title" id="gateTitle"></h1>
+    <p class="lead" id="gateSub"></p>
+    <button class="gift" id="gift" type="button" aria-label="Buka kado">
+      <svg viewBox="0 0 200 200" aria-hidden="true">
+        <rect class="g-box" x="30" y="96" width="140" height="94" rx="8"/>
+        <rect class="g-rib" x="92" y="96" width="16" height="94"/>
+        <g id="lid">
+          <rect class="g-lid" x="20" y="68" width="160" height="32" rx="8"/>
+          <rect class="g-rib" x="92" y="68" width="16" height="32"/>
+          <ellipse class="g-bow" cx="78" cy="56" rx="22" ry="13" transform="rotate(-22 78 56)"/>
+          <ellipse class="g-bow" cx="122" cy="56" rx="22" ry="13" transform="rotate(22 122 56)"/>
+          <circle class="g-rib" cx="100" cy="64" r="9"/>
+        </g>
+      </svg>
+    </button>
+    <p class="count">Ketuk kadonya</p>
+  </section>
+
+  <!-- Tahap 2: kue -->
+  <section class="stage col" id="cake" hidden>
+    <h2 class="title" id="cakeTitle" style="font-size:clamp(34px,8vw,60px)"></h2>
+    <p class="lead">Ketuk lilinnya satu per satu, atau tiup semuanya sekaligus.</p>
+    <svg class="cake" id="cakeSvg" viewBox="0 0 320 290" role="img" aria-label="Kue ulang tahun dengan lilin"></svg>
+    <p class="count" id="count" aria-live="polite"></p>
+    <button class="btn" id="blow" type="button">Tiup semua lilin</button>
+  </section>
+
+  <!-- Tahap 3: ucapan -->
+  <section class="stage wide" id="reveal" hidden>
+    <p class="eyebrow" id="revEyebrow"></p>
+    <h1 class="title" id="revTitle"></h1>
+    <p class="pesan" id="pesan"></p>
+    <h2 class="sub">Doa dari kami</h2>
+    <ul class="doa" id="doa"></ul>
+    <p class="ttd" id="ttd"></p>
+    <div class="row">
+      <button class="btn" id="again" type="button">Konfeti lagi</button>
+      <button class="btn alt" id="replay" type="button">Tiup lilin lagi</button>
+    </div>
+  </section>
+</main>
+
+<script>
+/* ====== UBAH DI SINI ====== */
+const CONFIG = {
+  panggilan: "Miss",               // dipakai di kalimat, contoh: "Bu" atau "Pak"
+  guru: "Miss Yustin",             // nama yang tampil
+  dari: "murid-muridmu",           // nama pengirim
+  lilin: 7,                        // jumlah lilin di kue
+  pesan: "Terima kasih sudah sabar menjelaskan hal yang sama berkali-kali dan tetap tersenyum waktu kami ribut. Hari ini kami cuma mau bilang: {p} adalah guru terbaik yang kami punya.",
+  doa: [
+    "Sehat terus, biar semangat ngajarnya nggak pernah habis.",
+    "Panjang umur, murah rezeki, dan hidupnya penuh berkah.",
+    "Semoga sabarnya {p} cukup buat kami yang suka ribut ini.",
+    "Semoga semua tugas kami nanti dapat nilai 100.",
+    "Semoga ilmu yang {p} bagi jadi pahala yang nggak putus-putus."
+  ]
+};
+/* ========================== */
+
+const $ = id => document.getElementById(id);
+const P = CONFIG.panggilan;
+const fill = s => s.replaceAll("{p}", P);
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const tanggal = new Date().toLocaleDateString("id-ID",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+
+$("tgl").textContent = tanggal;
+$("gateTitle").textContent = "Ada kejutan buat " + CONFIG.guru + ".";
+$("gateSub").textContent = "Dari " + CONFIG.dari + ".";
+$("cakeTitle").textContent = "Tiup lilinnya, " + CONFIG.guru + "!";
+$("revEyebrow").textContent = "Untuk " + CONFIG.guru + " · " + tanggal;
+$("revTitle").innerHTML = "Selamat ulang tahun, <em></em>!";
+$("revTitle").querySelector("em").textContent = CONFIG.guru;
+$("pesan").textContent = fill(CONFIG.pesan);
+$("ttd").textContent = "Dengan sayang, " + CONFIG.dari + ".";
+const warna = ["var(--sun)","var(--mint)","var(--sky)","var(--coral)","var(--frosting)"];
+CONFIG.doa.forEach((t,i)=>{
+  const li = document.createElement("li");
+  li.style.setProperty("--bgc", warna[i % warna.length]);
+  li.style.setProperty("--tilt", [-1.6,1.2,-.8,1.8,-1.2][i%5] + "deg");
+  const s = document.createElement("small"); s.textContent = "Doa #" + (i+1);
+  li.append(s, document.createTextNode(fill(t)));
+  $("doa").appendChild(li);
+});
+
+/* ---------- tahap ---------- */
+function show(id){
+  document.querySelectorAll(".stage").forEach(s => s.hidden = s.id !== id);
+  const el = $(id); el.classList.remove("in"); void el.offsetWidth; el.classList.add("in");
+  window.scrollTo(0,0);
+}
+
+/* ---------- konfeti ---------- */
+const cv = $("cv"), cx = cv.getContext("2d");
+const COL = ["#ff6b5e","#ffc933","#3ddbb0","#5cb8ff","#ffe3ef","#c78bff"];
+let W=0,H=0,parts=[],raf=0;
+function size(){const d=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*d;cv.height=H*d;cx.setTransform(d,0,0,d,0,0)}
+addEventListener("resize",size); size();
+function burst(x,y,n,dir){
+  n = reduce ? Math.ceil(n/4) : n;
+  for(let i=0;i<n;i++){
+    const a = (dir ?? -Math.PI/2) + (Math.random()-.5)*Math.PI*1.1, s = 6+Math.random()*11;
+    parts.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,w:6+Math.random()*6,h:10+Math.random()*8,r:Math.random()*6.28,vr:(Math.random()-.5)*.4,c:COL[i%COL.length]});
+  }
+  if(!raf) raf=requestAnimationFrame(tick);
+}
+function rain(n){
+  n = reduce ? Math.ceil(n/4) : n;
+  for(let i=0;i<n;i++) parts.push({x:Math.random()*W,y:-20-Math.random()*H*.5,vx:(Math.random()-.5)*2,vy:1+Math.random()*2,w:6+Math.random()*6,h:10+Math.random()*8,r:Math.random()*6.28,vr:(Math.random()-.5)*.3,c:COL[i%COL.length]});
+  if(!raf) raf=requestAnimationFrame(tick);
+}
+function tick(){
+  cx.clearRect(0,0,W,H);
+  parts = parts.filter(p => p.y < H+30);
+  for(const p of parts){
+    p.vy = Math.min(p.vy+.25,5.5); p.vx*=.99; p.x+=p.vx; p.y+=p.vy; p.r+=p.vr;
+    cx.save(); cx.translate(p.x,p.y); cx.rotate(p.r); cx.fillStyle=p.c; cx.fillRect(-p.w/2,-p.h/2,p.w,p.h); cx.restore();
+  }
+  raf = parts.length ? requestAnimationFrame(tick) : 0;
+  if(!raf) cx.clearRect(0,0,W,H);
+}
+function party(){
+  burst(W*.15,H*.9,70,-Math.PI/2+.5);
+  burst(W*.85,H*.9,70,-Math.PI/2-.5);
+  rain(80);
+}
+
+/* ---------- musik (Selamat Ulang Tahun, dibuat dengan WebAudio) ---------- */
+const MEL=[[0,.75],[0,.25],[2,1],[0,1],[5,1],[4,2],[0,.75],[0,.25],[2,1],[0,1],[7,1],[5,2],
+           [0,.75],[0,.25],[12,1],[9,1],[5,1],[4,1],[2,2],[10,.75],[10,.25],[9,1],[5,1],[7,1],[5,2]];
+let ac=null, master=null, timer=0, musicOn=false;
+function tune(){
+  if(!musicOn||!ac) return;
+  let t = ac.currentTime+.05; const beat=.5;
+  for(const [n,d] of MEL){
+    const o=ac.createOscillator(), g=ac.createGain();
+    o.type="triangle"; o.frequency.value = 261.63*Math.pow(2,n/12);
+    g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(.16,t+.03); g.gain.exponentialRampToValueAtTime(.001,t+d*beat*.95);
+    o.connect(g); g.connect(master); o.start(t); o.stop(t+d*beat); t+=d*beat;
+  }
+  timer = setTimeout(tune,(t-ac.currentTime+1.2)*1000);
+}
+function musicStart(){
+  try{
+    ac = ac || new (window.AudioContext||window.webkitAudioContext)();
+    if(ac.state==="suspended") ac.resume();
+    master = ac.createGain(); master.connect(ac.destination);
+    musicOn = true; tune();
+  }catch(e){ musicOn=false; }
+  $("mute").textContent = "Musik: " + (musicOn?"nyala":"mati");
+}
+function musicStop(){
+  musicOn=false; clearTimeout(timer);
+  if(master){ try{master.disconnect()}catch(e){} master=null; }
+  $("mute").textContent = "Musik: mati";
+}
+$("mute").onclick = () => musicOn ? musicStop() : musicStart();
+
+/* ---------- kue ---------- */
+function wave(x,y,w,n,depth){
+  const s=w/n; let d=`M${x} ${y}`;
+  for(let i=0;i<n;i++) d+=` q${s/2} ${depth} ${s} 0`;
+  return d+` L${x+w} ${y-8} L${x} ${y-8} Z`;
+}
+function buildCake(){
+  const svg=$("cakeSvg"); const N=Math.max(1,Math.min(CONFIG.lilin,12));
+  let h = `<ellipse class="plate" cx="160" cy="268" rx="148" ry="16"/>`;
+  h += `<rect class="sp1" x="30" y="188" width="260" height="76" rx="14"/>`;
+  h += `<rect class="sp2" x="56" y="132" width="208" height="62" rx="14"/>`;
+  h += `<rect class="sp3" x="82" y="86" width="156" height="52" rx="12"/>`;
+  h += `<path class="ice" d="${wave(30,198,260,13,16)}"/>`;
+  h += `<path class="ice" d="${wave(56,142,208,10,14)}"/>`;
+  h += `<path class="ice" d="${wave(82,96,156,8,12)}"/>`;
+  let seed=7; const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+  const sc=["#ff6b5e","#ffc933","#3ddbb0","#5cb8ff","#fff6e8"];
+  for(let i=0;i<26;i++){
+    const x=40+rnd()*240, y=222+rnd()*34;
+    h += `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="8" height="3" rx="1.5" fill="${sc[i%5]}" transform="rotate(${(rnd()*180).toFixed(0)} ${x.toFixed(1)} ${y.toFixed(1)})"/>`;
+  }
+  for(let i=0;i<N;i++){
+    const x = N===1 ? 160 : 102 + i*(116/(N-1));
+    h += `<g class="candle" data-i="${i}" tabindex="0" role="button" aria-label="Lilin ${i+1}">
+      <rect x="${x-14}" y="20" width="28" height="70" fill="transparent"/>
+      <circle class="glow" cx="${x}" cy="40" r="15"/>
+      <rect class="c${i%4}" x="${x-4}" y="52" width="8" height="38" rx="2"/>
+      <path class="flame" d="M${x} 28 C${x+9} 40 ${x+6} 51 ${x} 51 C${x-6} 51 ${x-9} 40 ${x} 28 Z"/>
+      <ellipse class="core" cx="${x}" cy="46" rx="2.6" ry="4.5"/>
+      <circle class="smoke" cx="${x}" cy="34" r="4"/><circle class="smoke" cx="${x+3}" cy="30" r="3"/>
+    </g>`;
+  }
+  svg.innerHTML = h;
+  svg.querySelectorAll(".candle").forEach(c=>{
+    c.addEventListener("click",()=>snuff(c));
+    c.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault();snuff(c);} });
+  });
+  updateCount();
+}
+function lit(){ return $("cakeSvg").querySelectorAll(".candle:not(.out)"); }
+function updateCount(){
+  const n=lit().length;
+  $("count").innerHTML = n ? "Lilin menyala: <b>"+n+"</b>" : "Semua lilin padam!";
+}
+let celebrating=false;
+function snuff(c){
+  if(c.classList.contains("out")) return;
+  c.classList.add("out"); updateCount();
+  const r=c.getBoundingClientRect(); burst(r.left+r.width/2, r.top+10, 10);
+  if(!lit().length) celebrate();
+}
+function celebrate(){
+  if(celebrating) return; celebrating=true;
+  party();
+  setTimeout(()=>{ show("reveal"); party(); celebrating=false; }, 1100);
+}
+$("blow").onclick = () => {
+  lit().forEach((c,i)=>setTimeout(()=>snuff(c), i*130));
+};
+
+/* ---------- alur ---------- */
+$("gift").onclick = () => {
+  $("gift").classList.add("open");
+  $("mute").hidden = false;
+  musicStart();
+  const r=$("gift").getBoundingClientRect();
+  burst(r.left+r.width/2, r.top+r.height*.3, 50);
+  setTimeout(()=>{ buildCake(); show("cake"); }, 1000);
+};
+$("again").onclick = party;
+$("replay").onclick = () => { buildCake(); show("cake"); };
+</script>
+</body>
+  </html>
